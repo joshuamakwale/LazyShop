@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Jobs - Lazy Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Lazy Shop</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="delivery.html">Deliver Jobs</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">&#9776;</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="delivery-signup">
+            <div class="container">
+                <h2>Join Our Delivery Team!</h2>
+                <p>Are you looking for flexible work and enjoy being on the road? Become a Lazy Shop delivery driver and help us bring convenience to our customers. Earn money on your schedule!</p>
+
+                <form id="delivery-form">
+                    <h3>Sign Up Here</h3>
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicle">Vehicle Type:</label>
+                        <select id="vehicle" name="vehicle" required>
+                            <option value="">--Select One--</option>
+                            <option value="car">Car</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="bicycle">Bicycle</option>
+                            <option value="van">Van</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability">Availability:</label>
+                        <input type="text" id="availability" name="availability" placeholder="e.g., Weekends, Evenings" required>
+                    </div>
+                    <button type="submit" class="btn">Apply Now</button>
+                </form>
+                <div id="form-message" class="form-message"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Lazy Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

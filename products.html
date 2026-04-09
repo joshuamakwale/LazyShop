@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products - Lazy Shop</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* CART + CHECKOUT STYLE */
+
+.cart, .checkout{
+margin-top:40px;
+padding:25px;
+background:white;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+max-width:700px;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid #eee;
+}
+
+.cart-total{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+.remove-btn{
+background:#e74c3c;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.remove-btn:hover{
+background:#c0392b;
+}
+
+.checkout form{
+margin-top:15px;
+}
+
+.checkout input,
+.checkout select{
+width:100%;
+padding:10px;
+margin-bottom:12px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+.checkout button{
+background:#2c3e50;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+.checkout button:hover{
+background:#1a252f;
+}
+
+#order-message{
+margin-top:15px;
+color:green;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<div class="logo">Lazy Shop</div>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="delivery.html">Deliver Jobs</a></li>
+<li><a href="about.html">About Us</a></li>
+</ul>
+</nav>
+
+<div class="menu-toggle">&#9776;</div>
+
+</div>
+</header>
+
+<main>
+
+<section class="product-list-page">
+
+<div class="container">
+
+<h2>Our Products</h2>
+
+<div class="product-grid">
+
+<div class="product-card">
+<img src="images/download.webp">
+<h3>Body Lotion</h3>
+<p>K180.99</p>
+<button class="add-to-cart" data-name="Body Lotion" data-price="180.99">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/apples.webp">
+<h3>Fresh Apples (Pack of 6)</h3>
+<p>K40.50</p>
+<button class="add-to-cart" data-name="Fresh Apples (Pack of 6)" data-price="40.50">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/milk.webp">
+<h3>Organic Milk</h3>
+<p>K32.99</p>
+<button class="add-to-cart" data-name="Organic Milk" data-price="32.99">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/wheat-bread.webp">
+<h3>Whole Wheat Bread</h3>
+<p>K29.75</p>
+<button class="add-to-cart" data-name="Whole Wheat Bread" data-price="29.75">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/rice.webp">
+<h3>Premium Rice (2kg)</h3>
+<p>K123.99</p>
+<button class="add-to-cart" data-name="Premium Rice (2kg)" data-price="123.99">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/eggs.webp">
+<h3>Farm Eggs (Tray)</h3>
+<p>K50.25</p>
+<button class="add-to-cart" data-name="Farm Eggs (Tray)" data-price="50.25">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/drinks.webp">
+<h3>Soft Drink (2L)</h3>
+<p>K15.99</p>
+<button class="add-to-cart" data-name="Soft Drink (2L)" data-price="15.99">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/potato.webp">
+<h3>Potato Chips</h3>
+<p>K21.50</p>
+<button class="add-to-cart" data-name="Potato Chips" data-price="21.50">Add to Cart</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<section class="cart">
+
+<h2>Your Cart</h2>
+
+<div id="cart-items"></div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section class="checkout">
+
+<h2>Delivery Information</h2>
+
+<form id="checkout-form">
+
+<input type="text" placeholder="Full Name" required>
+
+<input type="text" placeholder="Phone Number" required>
+
+<input type="text" placeholder="Delivery Location / Address" required>
+
+<select required>
+
+<option value="">Payment Method</option>
+<option>Cash on Delivery</option>
+<option>Mobile Money</option>
+
+</select>
+
+<button type="submit">Place Order</button>
+
+</form>
+
+<p id="order-message"></p>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<div class="container">
+<p>&copy; 2026 Lazy Shop. All rights reserved.</p>
+</div>
+
+</footer>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const cartItems = document.getElementById("cart-items");
+
+
+// ADD TO CART
+document.querySelectorAll(".add-to-cart").forEach(button => {
+
+button.addEventListener("click", function(){
+
+const product = {
+name: this.dataset.name,
+price: this.dataset.price
+};
+
+cart.push(product);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+});
+
+});
+
+
+// DISPLAY CART
+function displayCart(){
+
+cartItems.innerHTML = "";
+
+if(cart.length === 0){
+
+cartItems.innerHTML = "<p>Your cart is empty</p>";
+
+return;
+
+}
+
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+const row = document.createElement("div");
+
+row.className = "cart-item";
+
+row.innerHTML = `
+<span>${item.name}</span>
+<span>K${item.price}</span>
+<button class="remove-btn" data-index="${index}">Remove</button>
+`;
+
+cartItems.appendChild(row);
+
+total += Number(item.price);
+
+});
+
+
+const totalDiv = document.createElement("div");
+
+totalDiv.className = "cart-total";
+
+totalDiv.innerHTML = `Total: K${total.toFixed(2)}`;
+
+cartItems.appendChild(totalDiv);
+
+addRemoveButtons();
+
+}
+
+
+// REMOVE BUTTON
+function addRemoveButtons(){
+
+document.querySelectorAll(".remove-btn").forEach(button=>{
+
+button.addEventListener("click",function(){
+
+const index = this.dataset.index;
+
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+});
+
+});
+
+}
+
+
+// CHECKOUT
+const checkoutForm = document.getElementById("checkout-form");
+
+const orderMessage = document.getElementById("order-message");
+
+checkoutForm.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+orderMessage.textContent = "✅ Order placed successfully! Delivery will arrive soon.";
+
+localStorage.removeItem("cart");
+
+cart = [];
+
+displayCart();
+
+});
+
+
+displayCart();
+
+});
+
+</script>
+
+</body>
+</html>
